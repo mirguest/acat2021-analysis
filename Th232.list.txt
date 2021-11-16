@@ -1,0 +1,11 @@
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000812080.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000822120.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000832120.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000842120.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000842160.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000862200.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000882240.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000882280.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000892280.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000902280.root
+/hpcfs/juno/junogpu/liuyan2016/cor-ana/Tag/DataGen/background/mergy/Th232-1000902320.root
