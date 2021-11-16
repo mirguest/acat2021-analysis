@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD 17 CACHE STRING "")
 find_package(offline)
 include(PKG)
 
+add_subdirectory(OECEvent)
 add_subdirectory(ExamplePyAlg)
+
 
 include(JUNOSetupScripts)
 include(JUNOInstallOfflineSetup)
