@@ -8,7 +8,7 @@ include(PKG)
 
 add_subdirectory(OECEvent)
 add_subdirectory(ExamplePyAlg)
-
+add_subdirectory(DummyEventMixing)
 
 include(JUNOSetupScripts)
 include(JUNOInstallOfflineSetup)
