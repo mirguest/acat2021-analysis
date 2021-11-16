@@ -1,6 +1,12 @@
 # JUNO Offline Analysis Example (ACAT 2021)
 
 * See https://indico.cern.ch/event/855454/contributions/4605040/
+* Authors:
+  * Weidong Li
+  * Tao Lin
+  * Yan Liu
+  * Yixiang Yang
+  * Jiaheng Zou
 
 ## Quickstart
 
