@@ -66,6 +66,10 @@ bool MixingAlg::execute() {
 
     m_current_time += deltatime;
 
+    int sec = (int)m_current_time;
+    int nsec = (int)((m_current_time-sec)*1e9);
+    TTimeStamp curtime(sec, nsec);
+
     // sample
     double r = gRandom->Uniform(m_totalrates);
     LogInfo << "sample r: " << r << std::endl;
@@ -100,15 +104,14 @@ bool MixingAlg::execute() {
 
     auto oecheader = new JM::OECHeader();
     auto oecevent = new JM::OECEvent();
+    oecevent->setTime(curtime);
+
+    oecheader->setEvent(oecevent);
 
     // new Event Navigator
-    int sec = (int)m_current_time;
-    int nsec = (int)((m_current_time-sec)*1e9);
-    TTimeStamp curtime(sec, nsec);
 
     auto anew_evtnav = new JM::EvtNavigator();
     anew_evtnav->setTimeStamp(curtime);
-    oecheader->setEvent(oecevent);
     anew_evtnav->addHeader("/Event/OEC", oecheader);
     m_buf->adopt(anew_evtnav, "/Event");
 
