@@ -5,8 +5,6 @@
 
 #include "TTimeStamp.h"
 
-using namespace std;
-
 namespace JM{
     class OECEvent:public EventObject{
         public:
@@ -33,7 +31,7 @@ namespace JM{
             void setVertexY(float y){f_vertexY=y;}
             void setVertexZ(float z){f_vertexZ=z;}
             //void setTag(int tag){i_tag=tag;}
-            bool addTag(string);
+            bool addTag(std::string);
             bool addTag(int tag){i_tag=i_tag | tag;return true;}
             bool isMuon();
             bool isTTMuon();

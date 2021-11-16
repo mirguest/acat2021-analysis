@@ -71,6 +71,10 @@ class MixingModule(JUNOModule):
 ##############################################################################
 # Application
 ##############################################################################
+
+import Sniper
+Sniper.setLogLevel(0)
+
 juno_application = JUNOApplication(description="Event mixing")
 juno_application.set_default_input_action("append")
 juno_application.set_default_output("sample_oec.root")

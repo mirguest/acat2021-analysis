@@ -22,7 +22,7 @@ namespace JM{
     OECEvent::~OECEvent(){
     }
 
-    string OECEvent::getIDA(){
+    std::string OECEvent::getIDA(){
         return "CD";
     }
 
@@ -50,7 +50,7 @@ namespace JM{
         else return false;
     }
 
-    bool OECEvent::addTag(string tag){
+    bool OECEvent::addTag(std::string tag){
         int i_temptag=0;
         if (!tag.compare("muonCD")){
             i_temptag=0x10100000;     
