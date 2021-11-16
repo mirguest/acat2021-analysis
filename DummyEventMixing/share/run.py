@@ -73,7 +73,7 @@ class MixingModule(JUNOModule):
 ##############################################################################
 
 import Sniper
-Sniper.setLogLevel(0)
+# Sniper.setLogLevel(0)
 
 juno_application = JUNOApplication(description="Event mixing")
 juno_application.set_default_input_action("append")

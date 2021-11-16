@@ -72,7 +72,7 @@ bool MixingAlg::execute() {
 
     // sample
     double r = gRandom->Uniform(m_totalrates);
-    LogInfo << "sample r: " << r << std::endl;
+    LogDebug << "sample r: " << r << std::endl;
 
     // get the sample (label)
     size_t sample_idx = 0;
@@ -90,7 +90,7 @@ bool MixingAlg::execute() {
     int nbranches = m_nbranches[sample_idx];
     int ibr = gRandom->Integer(nbranches);
 
-    LogInfo << "select sample " << sample_idx << " ibr " << ibr << std::endl;
+    LogDebug << "select sample " << sample_idx << " ibr " << ibr << std::endl;
 
     // according to the isample and ibr, get the event
     auto& current_stream =  m_inputstreams[sample_idx][ibr];
