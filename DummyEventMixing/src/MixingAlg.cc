@@ -102,9 +102,35 @@ bool MixingAlg::execute() {
     auto simheader = dynamic_cast<JM::SimHeader*>(evtnav->getHeader("/Event/Sim"));
     auto simevent = dynamic_cast<JM::SimEvent*>(simheader->event());
 
+    Float_t total_energy=0.0;
+    Float_t genx=0.0;
+    Float_t geny=0.0;
+    Float_t genz=0.0;
+    auto tracks = simevent->getTracksVec();
+
+    for (auto& track: tracks) {
+        Float_t energy = track->getQEdep();
+        genx+=track->getQEdepX()*energy;
+        geny+=track->getQEdepY()*energy;
+        genz+=track->getQEdepZ()*energy;
+        total_energy+=energy;
+    }
+    genx = genx/total_energy;
+    geny = geny/total_energy;
+    genz = genz/total_energy;
+
+
     auto oecheader = new JM::OECHeader();
     auto oecevent = new JM::OECEvent();
+
+    oecevent->setEnergy(total_energy);
     oecevent->setTime(curtime);
+    oecevent->setVertexX(genx);
+    oecevent->setVertexY(geny);
+    oecevent->setVertexZ(genz);
+
+    oecevent->addTag(int(sample_idx));
+    oecevent->setMuID(int(ibr));
 
     oecheader->setEvent(oecevent);
 
