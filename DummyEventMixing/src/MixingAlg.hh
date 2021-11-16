@@ -21,7 +21,7 @@ public:
 private:
     // rates: key is the input name, value is the rate
     std::map<std::string, double> m_rates;
-
+    std::map<std::string, std::vector<std::string>> m_inputs;
 private:
     JM::NavBuffer* m_buf;
 

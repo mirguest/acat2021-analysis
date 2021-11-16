@@ -13,7 +13,7 @@ MixingAlg::MixingAlg(const std::string& name)
     : AlgBase(name) {
 
     declProp("Rates", m_rates);
-
+    declProp("Inputs", m_inputs);
 }
 
 bool MixingAlg::initialize() {

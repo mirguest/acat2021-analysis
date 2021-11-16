@@ -34,7 +34,39 @@ class MixingModule(JUNOModule):
         rates = {"U238": 3.224, 
                  "Th232": 0.792,
                  "K40": 0.518}
+
+        inputs = {}
+
+        if args.input is None:
+            inputs = {"U238": "@U238.list.txt",
+                      "Th232": "@Th232.list.txt",
+                      "K40": "@K40.list.txt"}
+        else:
+            # the format: --input U238:@filelist.txt
+            # while in filelist.txt, it contains all the branches
+            for f in args.input:
+                k, v = f.split(":", 1)
+                inputs[k] = v
+
+        # expand the file list
+        inputs_expanded = {}
+        print(inputs)
+        for k, v in inputs.items():
+            filelist = []
+            if not v.startswith("@"):
+                filelist.append(v)
+                inputs_expanded[k] = filelist
+                continue
+            # if it startswith @
+            with open(v[1:]) as finput:
+                for line in finput:
+                    fn = line.strip()
+                    filelist.append(fn)
+
+            inputs_expanded[k] = filelist
+
         mixingalg.property("Rates").set(rates)
+        mixingalg.property("Inputs").set(inputs_expanded)
 
 ##############################################################################
 # Application
