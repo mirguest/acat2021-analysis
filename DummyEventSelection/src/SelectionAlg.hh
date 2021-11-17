@@ -26,6 +26,11 @@ private:
 
 private:
     Long64_t m_counter_selected;
+    Long64_t m_counter_selected_cutn; // with multiple events in buffer
+    Long64_t m_counter_selected_cutenergydelay; //
+    Long64_t m_counter_selected_cutenergyprompt; //
+    Long64_t m_counter_selected_cutdeltatime; //
+    Long64_t m_counter_selected_cutprompt; // with energy+time+distance
     Long64_t m_counter_processed;
 };
 

@@ -12,7 +12,13 @@ DECLARE_ALGORITHM(SelectionAlg);
 
 SelectionAlg::SelectionAlg(const std::string& name) 
     : AlgBase(name), 
-      m_counter_selected(0), m_counter_processed(0) {
+      m_counter_selected(0),
+      m_counter_selected_cutn(0),
+      m_counter_selected_cutenergydelay(0),
+      m_counter_selected_cutenergyprompt(0),
+      m_counter_selected_cutdeltatime(0),
+      m_counter_selected_cutprompt(0),
+      m_counter_processed(0) {
     declProp("DelayEnergyRange", m_delay_energy_range={1.9, 2.5});
     declProp("PromptEnergyRange", m_prompt_energy_range={0.7, 12});
     declProp("TimeCut", m_deltatime_cut=0.001);
@@ -67,14 +73,19 @@ bool SelectionAlg::execute() {
         return true;
     }
 
+    ++m_counter_selected_cutn;
+
     // energy of delayed signal
     auto delayed_energy = oecevt->getEnergy();
     if (delayed_energy<m_delay_energy_range[0] 
      || delayed_energy>m_delay_energy_range[1]) {
         return true;
     }
+    ++m_counter_selected_cutenergydelay;
 
     // loop from begin to current
+    int counter_found_prompt_energy = 0;
+    int counter_found_detaltime = 0;
     int counter_found_prompt = 0;
 
     for (auto it = m_buf->begin(); it != m_buf->current(); ++it) {
@@ -96,12 +107,14 @@ bool SelectionAlg::execute() {
          || prompt_energy>m_prompt_energy_range[1]) {
             continue;
         }
+        ++counter_found_prompt_energy;
 
         // delta time 
         double delta_second = oecevt->getTime().AsDouble() - evt->getTime().AsDouble();
         if (delta_second<0 || delta_second>m_deltatime_cut) {
             continue;
         }
+        ++counter_found_detaltime;
 
         // delta distance
         double dx =  oecevt->getVertexX() - evt->getVertexX();
@@ -115,10 +128,21 @@ bool SelectionAlg::execute() {
         ++counter_found_prompt;
     }
 
+    if (counter_found_prompt_energy<1) {
+        return true;
+    }
+    ++m_counter_selected_cutenergyprompt;
+
+    if (counter_found_detaltime<1) {
+        return true;
+    }
+    ++m_counter_selected_cutdeltatime;
+
     // can't find any prompt
     if (counter_found_prompt<1) {
         return true;
     }
+    ++m_counter_selected_cutprompt;
 
     // save the delayed signal
     ++m_counter_selected;
@@ -126,15 +150,20 @@ bool SelectionAlg::execute() {
 }
 
 bool SelectionAlg::finalize() {
-    LogInfo << "Total process " << m_counter_processed << " events. "
-            << "Total select " << m_counter_selected << " events. "
-            << " with following cuts: " << std::endl;
-    LogInfo << " Prompt Energy Range: ["
-            << m_prompt_energy_range[0] << ", "
-            << m_prompt_energy_range[1] << "]" << std::endl;
+    LogInfo << "Total process " << m_counter_processed << " events. " << std::endl;
+    LogInfo << "Total select " << m_counter_selected << " events. " << std::endl;
+    LogInfo << "Total select (cutn) " << m_counter_selected_cutn << " events. " << std::endl;
+    LogInfo << "Total select (energy delay) " << m_counter_selected_cutenergydelay << " events. " << std::endl;
+    LogInfo << "Total select (energy prompt) " << m_counter_selected_cutenergyprompt << " events. " << std::endl;
+    LogInfo << "Total select (delta time) " << m_counter_selected_cutdeltatime << " events. " << std::endl;
+    LogInfo << "Total select (prompt) " << m_counter_selected_cutprompt << " events. " << std::endl;
+    LogInfo << " Using Following cuts: " << std::endl;
     LogInfo << " Delay Energy Range: ["
             << m_delay_energy_range[0] << ", "
             << m_delay_energy_range[1] << "]" << std::endl;
+    LogInfo << " Prompt Energy Range: ["
+            << m_prompt_energy_range[0] << ", "
+            << m_prompt_energy_range[1] << "]" << std::endl;
     LogInfo << " Delta time cut (s): " << m_deltatime_cut << std::endl;
     LogInfo << " Distance cut (m): " << m_distance_cut << std::endl;
     return true;
