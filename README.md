@@ -24,9 +24,14 @@ $ source InstallArea/setup.sh
   * U238, Th232, K40 etc. 
   * In this example, we reuse the existing datasets under
     * `/junofs/production/data-production/Pre-Releases/J20v1r0-Pre2/background/LS/`
-* [ ] Do the dummy event mixing without electronics (OECEvent data)
+* [x] Do the dummy event mixing without electronics (OECEvent data)
   * The rates (see https://juno.ihep.ac.cn/mediawiki/index.php/Offline:Data_production/mixed):
     * U238 in LS: 3.224 Hz
     * Th232 in LS: 0.792 Hz
     * K40 in LS: 0.518 Hz
 * [ ] Generate the index data for further data reduction
+  * IBD Selection:
+    * Ep: [0.7MeV, 12MeV]
+    * Ed: [1.9MeV, 2.5MeV]
+    * Tp-d: < 1.0ms
+    * Dp-d: < 1.5m
