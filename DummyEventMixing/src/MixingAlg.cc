@@ -96,7 +96,7 @@ bool MixingAlg::execute() {
     auto& current_stream =  m_inputstreams[sample_idx][ibr];
     auto st = current_stream.next();
 
-    auto evtnav = current_stream.get();
+    std::shared_ptr<JM::EvtNavigator> evtnav(current_stream.get());
 
     // copy SimEvent to OECEvent
     auto simheader = dynamic_cast<JM::SimHeader*>(evtnav->getHeader("/Event/Sim"));
