@@ -20,6 +20,8 @@ class SelectionModule(JUNOModule):
         pass
 
     def register_options(self, parser):
+        parser.add_argument("--time-cut", type=float, default=0.001, help='time cut (s)')
+        parser.add_argument("--dist-cut", type=float, default=1.5, help='distance cut (m)')
         pass
 
     def add_output_vec(self, output_vec, args):
@@ -35,8 +37,8 @@ class SelectionModule(JUNOModule):
         selectionalg = toptask.createAlg("SelectionAlg")
         selectionalg.property("DelayEnergyRange").set([1.9, 2.5])
         selectionalg.property("PromptEnergyRange").set([0.7, 12])
-        selectionalg.property("TimeCut").set(0.001) # 1ms = 0.001s
-        selectionalg.property("DistanceCut").set(1.5) # 1.5m
+        selectionalg.property("TimeCut").set(args.time_cut) # 1ms = 0.001s
+        selectionalg.property("DistanceCut").set(args.dist_cut) # 1.5m
 
 ##############################################################################
 # Application

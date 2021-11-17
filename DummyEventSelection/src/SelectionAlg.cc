@@ -150,13 +150,16 @@ bool SelectionAlg::execute() {
 }
 
 bool SelectionAlg::finalize() {
+    double total = m_counter_processed;
+    total/=100.;
+
     LogInfo << "Total process " << m_counter_processed << " events. " << std::endl;
     LogInfo << "Total select " << m_counter_selected << " events. " << std::endl;
-    LogInfo << "Total select (cutn) " << m_counter_selected_cutn << " events. " << std::endl;
-    LogInfo << "Total select (energy delay) " << m_counter_selected_cutenergydelay << " events. " << std::endl;
-    LogInfo << "Total select (energy prompt) " << m_counter_selected_cutenergyprompt << " events. " << std::endl;
-    LogInfo << "Total select (delta time) " << m_counter_selected_cutdeltatime << " events. " << std::endl;
-    LogInfo << "Total select (prompt) " << m_counter_selected_cutprompt << " events. " << std::endl;
+    LogInfo << "Total select (cutn) "          << m_counter_selected_cutn            << " events. " << (m_counter_selected_cutn/total)            << "%" << std::endl;
+    LogInfo << "Total select (energy delay) "  << m_counter_selected_cutenergydelay  << " events. " << (m_counter_selected_cutenergydelay/total)  << "%" << std::endl;
+    LogInfo << "Total select (energy prompt) " << m_counter_selected_cutenergyprompt << " events. " << (m_counter_selected_cutenergyprompt/total) << "%" << std::endl;
+    LogInfo << "Total select (delta time) "    << m_counter_selected_cutdeltatime    << " events. " << (m_counter_selected_cutdeltatime/total) << "%" << std::endl;
+    LogInfo << "Total select (prompt) "        << m_counter_selected_cutprompt       << " events. " << (m_counter_selected_cutprompt/total) << "%" << std::endl;
     LogInfo << " Using Following cuts: " << std::endl;
     LogInfo << " Delay Energy Range: ["
             << m_delay_energy_range[0] << ", "
