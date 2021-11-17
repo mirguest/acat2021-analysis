@@ -20,6 +20,10 @@ class SelectionModule(JUNOModule):
         pass
 
     def register_options(self, parser):
+        parser.add_argument("--delay-energy-min", type=float, default=1.9, help='Delay Energy min (MeV)')
+        parser.add_argument("--delay-energy-max", type=float, default=2.5, help='Delay Energy max (MeV)')
+        parser.add_argument("--prompt-energy-min", type=float, default=0.7, help='Prompt Energy min (MeV)')
+        parser.add_argument("--prompt-energy-max", type=float, default=12., help='Prompt Energy max (MeV)')
         parser.add_argument("--time-cut", type=float, default=0.001, help='time cut (s)')
         parser.add_argument("--dist-cut", type=float, default=1.5, help='distance cut (m)')
         pass
@@ -35,8 +39,8 @@ class SelectionModule(JUNOModule):
         import DummyEventSelection
 
         selectionalg = toptask.createAlg("SelectionAlg")
-        selectionalg.property("DelayEnergyRange").set([1.9, 2.5])
-        selectionalg.property("PromptEnergyRange").set([0.7, 12])
+        selectionalg.property("DelayEnergyRange").set([args.delay_energy_min, args.delay_energy_max])
+        selectionalg.property("PromptEnergyRange").set([args.prompt_energy_min, args.prompt_energy_max])
         selectionalg.property("TimeCut").set(args.time_cut) # 1ms = 0.001s
         selectionalg.property("DistanceCut").set(args.dist_cut) # 1.5m
 
