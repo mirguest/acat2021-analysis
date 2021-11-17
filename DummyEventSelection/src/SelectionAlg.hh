@@ -17,6 +17,16 @@ public:
 
 private:
     JM::NavBuffer* m_buf;
+
+private:
+    std::vector<double> m_delay_energy_range;
+    std::vector<double> m_prompt_energy_range;
+    double m_deltatime_cut; // in second
+    double m_distance_cut; // in m
+
+private:
+    Long64_t m_counter_selected;
+    Long64_t m_counter_processed;
 };
 
 #endif

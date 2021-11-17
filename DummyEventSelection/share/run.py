@@ -27,10 +27,16 @@ class SelectionModule(JUNOModule):
 
     def init(self, toptask, args):
 
+        buffermgr = toptask.findSvc("BufferMemMgr")
+        buffermgr.property("TimeWindow").set([-1,1])
+
         import DummyEventSelection
 
         selectionalg = toptask.createAlg("SelectionAlg")
-
+        selectionalg.property("DelayEnergyRange").set([1.9, 2.5])
+        selectionalg.property("PromptEnergyRange").set([0.7, 12])
+        selectionalg.property("TimeCut").set(0.001) # 1ms = 0.001s
+        selectionalg.property("DistanceCut").set(1.5) # 1.5m
 
 ##############################################################################
 # Application
