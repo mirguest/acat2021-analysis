@@ -18,12 +18,8 @@ struct EventIndexReader {
         return m_streamer.close();
     }
 
-    bool next() {
-        return m_streamer.next();
-    }
-
-    wrapper_type get() {
-        return m_streamer.get();
+    bool get(wrapper_type& data) {
+        return m_streamer.get(data);
     }
 
 private:

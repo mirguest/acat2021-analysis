@@ -18,9 +18,8 @@ int main() {
         return -1;
     }
 
-
-    while (reader.next()) {
-        AEI idx = reader.get();
+    AEI idx;
+    while (reader.get(idx)) {
         std::cout << idx.getFileId() << " "
                   << idx.getEntryId() << " "
                   << idx.energy << " "

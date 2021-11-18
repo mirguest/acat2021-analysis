@@ -24,12 +24,10 @@ struct EventIndexDataV0PlainInputStreamer {
 
     bool open(const std::string& filename);
     bool close();
-    bool next();
-    wrapper_type get();
+    bool get(wrapper_type& data);
 
 private:
     std::ifstream m_input;
-    std::string m_cache_line;
 };
 
 struct EventIndexDataV0PlainOutputStreamer {

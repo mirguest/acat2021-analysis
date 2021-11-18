@@ -1,5 +1,6 @@
 #include "EventIndex/EventIndexData.hh"
 #include <sstream>
+#include <iostream>
 
 // INPUT STREAMER
 bool EventIndexDataV0PlainInputStreamer::open(const std::string& filename) {
@@ -12,26 +13,33 @@ bool EventIndexDataV0PlainInputStreamer::close() {
     return true;
 }
 
-bool EventIndexDataV0PlainInputStreamer::next() {
-    std::getline(m_input, m_cache_line);
-
-    return m_input.good() and not m_input.eof();
-}
-
-EventIndexDataV0PlainInputStreamer::wrapper_type
-EventIndexDataV0PlainInputStreamer::get() {
+bool EventIndexDataV0PlainInputStreamer::get(EventIndexDataV0PlainInputStreamer::wrapper_type& data) {
+    bool st = false;
     wrapper_type tmp;
-    std::stringstream ss(m_cache_line);
+    std::string cache_line;
 
-    ss >> tmp.fileId
-       >> tmp.entryId
-       >> tmp.energy
-       >> tmp.vertex_x
-       >> tmp.vertex_y
-       >> tmp.vertex_z
-       >> tmp.time;
+    while(std::getline(m_input, cache_line)) {
+        std::stringstream ss(cache_line);
 
-    return tmp;
+        ss >> tmp.fileId
+           >> tmp.entryId
+           >> tmp.energy
+           >> tmp.vertex_x
+           >> tmp.vertex_y
+           >> tmp.vertex_z
+           >> tmp.time;
+
+        if (not ss.fail()) {
+            st = true;
+            break;
+        }
+    }
+
+    if (st) {
+        data = tmp;
+    }
+
+    return st;
 }
 
 // OUTPUT STREAMER
