@@ -32,4 +32,16 @@ private:
     std::string m_cache_line;
 };
 
+struct EventIndexDataV0PlainOutputStreamer {
+    typedef EventIndexDataV0 data_type;
+    typedef EventIndexWrapper<data_type> wrapper_type;
+
+    bool open(const std::string& filename);
+    bool close();
+    bool put(const wrapper_type& data);
+
+private:
+    std::ofstream m_output;
+};
+
 #endif
