@@ -53,7 +53,7 @@ bool EventIndexDataV0PlainOutputStreamer::put(const EventIndexDataV0PlainOutputS
              << data.vertex_x << " "
              << data.vertex_y << " "
              << data.vertex_z << " "
-             << data.time     << " "
+             << data.time     << ""
              << std::endl;;
 
     return m_output.good();
