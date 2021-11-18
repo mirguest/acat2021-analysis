@@ -29,7 +29,7 @@ $ source InstallArea/setup.sh
     * U238 in LS: 3.224 Hz
     * Th232 in LS: 0.792 Hz
     * K40 in LS: 0.518 Hz
-* [ ] Generate the index data for further data reduction
+* [x] Generate the index data for further data reduction
   * IBD Selection:
     * Ep: [0.7MeV, 12MeV]
     * Ed: [1.9MeV, 2.5MeV]
@@ -59,3 +59,16 @@ junotoptask:SelectionAlg.finalize  INFO:  Prompt Energy Range: [0.5, 12]
 junotoptask:SelectionAlg.finalize  INFO:  Delta time cut (s): 0.0025
 junotoptask:SelectionAlg.finalize  INFO:  Distance cut (m): 4
 ```
+
+## Analysis Event Index (AEI)
+* The definition of Event Index (transient, in memory)
+  * The first part: reference to event data
+    * fileID
+    * entryID
+  * The second part: event level information
+    * energy
+    * vertex
+    * time
+* The I/O of Event Index (persistent)
+
+

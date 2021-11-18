@@ -7,6 +7,7 @@ find_package(offline)
 include(PKG)
 
 add_subdirectory(OECEvent)
+add_subdirectory(EventIndex)
 add_subdirectory(ExamplePyAlg)
 add_subdirectory(DummyEventMixing)
 add_subdirectory(DummyEventSelection)
