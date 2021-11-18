@@ -37,7 +37,7 @@ $ source InstallArea/setup.sh
     * Dp-d: < 1.5m
   * Loose selection (From Jie Zhao's talk):
     * Ep: [0.5MeV, 12MeV]
-    * Ed: [1.0MeV, 2.5MeV]
+    * Ed: [1.0MeV, 12MeV]
     * Tp-d: < 2.5ms
     * Dp-d: < 4.0m
 
