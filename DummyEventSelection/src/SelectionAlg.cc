@@ -23,6 +23,8 @@ SelectionAlg::SelectionAlg(const std::string& name)
     declProp("PromptEnergyRange", m_prompt_energy_range={0.7, 12});
     declProp("TimeCut", m_deltatime_cut=0.001);
     declProp("DistanceCut", m_distance_cut=1.5);
+
+    declProp("IndexFile", m_index_fn="dummy-select-index.txt");
 }
 
 bool SelectionAlg::initialize() {
@@ -33,6 +35,10 @@ bool SelectionAlg::initialize() {
         return false;
     }
     m_buf = navBuf.data();
+
+    if (not m_writer.open(m_index_fn)) {
+        return false;
+    }
 
     return true;
 }
@@ -146,10 +152,25 @@ bool SelectionAlg::execute() {
 
     // save the delayed signal
     ++m_counter_selected;
+
+
+    // store info into index
+    AEI saved_index;
+    saved_index.fileId = 0;
+    saved_index.entryId = m_counter_processed - 1; // todo
+    saved_index.energy = delayed_energy;
+    saved_index.vertex_x = oecevt->getVertexX();
+    saved_index.vertex_y = oecevt->getVertexY();
+    saved_index.vertex_z = oecevt->getVertexZ();
+    saved_index.time = oecevt->getTime().AsDouble();
+    m_writer.put(saved_index);
+
     return true;
 }
 
 bool SelectionAlg::finalize() {
+    m_writer.close();
+
     double total = m_counter_processed;
     total/=100.;
 

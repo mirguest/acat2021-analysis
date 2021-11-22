@@ -4,6 +4,7 @@
 #include <SniperKernel/AlgBase.h>
 #include <EvtNavigator/NavBuffer.h>
 #include <Event/OECHeader.h>
+#include <EventIndex/EventIndex.hh>
 
 
 class SelectionAlg: public AlgBase {
@@ -32,6 +33,10 @@ private:
     Long64_t m_counter_selected_cutdeltatime; //
     Long64_t m_counter_selected_cutprompt; // with energy+time+distance
     Long64_t m_counter_processed;
+
+private:
+    std::string m_index_fn;
+    AEIPlainWriter m_writer;
 };
 
 #endif
