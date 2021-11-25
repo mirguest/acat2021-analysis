@@ -96,11 +96,28 @@ bool MixingAlg::execute() {
     auto& current_stream =  m_inputstreams[sample_idx][ibr];
     auto st = current_stream.next();
 
+    if (not st) {
+        LogError << "Failed to get the stream. " << std::endl;
+        return false;
+    }
+
     std::shared_ptr<JM::EvtNavigator> evtnav(current_stream.get());
+    if (not evtnav) {
+        LogError << "Failed to get event navigator. " << std::endl;
+        return false;
+    }
 
     // copy SimEvent to OECEvent
     auto simheader = dynamic_cast<JM::SimHeader*>(evtnav->getHeader("/Event/Sim"));
+    if (!simheader) {
+        LogError << "Failed to get SimHeader. " << std::endl;
+        return false;
+    }
     auto simevent = dynamic_cast<JM::SimEvent*>(simheader->event());
+    if (!simevent) {
+        LogError << "Failed to get SimEvent. " << std::endl;
+        return false;
+    }
 
     Float_t total_energy=0.0;
     Float_t genx=0.0;
@@ -168,13 +185,16 @@ MixingAlg::BranchStream::BranchStream(const std::string& fn)
 }
 
 bool MixingAlg::BranchStream::next() {
-    stream->next();
-    auto cur_entry = stream->getEntry();
-    auto total_entry = stream->getEntries();
+    bool st = stream->next();
 
-    // reuse the data
-    if(cur_entry>=total_entry){
-        stream->first();
+    if (not st) { // failed to next, try reset to first
+        auto cur_entry = stream->getEntry();
+        auto total_entry = stream->getEntries();
+
+        // reuse the data
+        if(cur_entry+1>=total_entry){
+            st = stream->first();
+        }
     }
     
     return true;
